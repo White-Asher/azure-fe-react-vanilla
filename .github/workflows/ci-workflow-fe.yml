@@ -26,16 +26,19 @@ jobs:
 
     - name: Install dependencies
       working-directory: .
-      run: npm install
+      run: |
+          cd client
+          npm install
 
     - name: Build React.js application
       working-directory: .
-      run: npm run build
+      run: |
+          cd client
+          npm run build
 
     - name: Get current date and time
       id: datetime
       run: echo "DATE_TAG=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
-
 
     - name: Log in to AZURE
       run: |
