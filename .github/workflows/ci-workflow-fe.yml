@@ -25,11 +25,11 @@ jobs:
         node-version: '20.12'
 
     - name: Install dependencies
-      working-directory: ./frontend-react
+      working-directory: .
       run: npm install
 
     - name: Build React.js application
-      working-directory: ./frontend-react
+      working-directory: .
       run: npm run build
 
     - name: Get current date and time
@@ -45,20 +45,20 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: ./gitops/frontend-react/Dockerfile 
+        file: ./gitops/Dockerfile
         push: true
-        tags: ${{ secrets.AZURE_URL }}/frontend-vue:${{ github.event.inputs.name }}-${{ env.DATE_TAG }}
+        tags: ${{ secrets.AZURE_URL }}/frontend-react:${{ github.event.inputs.name }}-${{ env.DATE_TAG }}
 
     - name: Update Kustomize Deployment with New Tag
       run: |
         TAG="${{ github.event.inputs.name }}-${{ env.DATE_TAG }}"
-        sed -i "s|newTag: .*$|newTag: $TAG|g" gitops/frontend-react/overlays/dev/kustomization.yaml
+        sed -i "s|newTag: .*$|newTag: $TAG|g" gitops/overlays/dev/kustomization.yaml
 
     - name: Commit and push changes
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add ./gitops/frontend-react/overlays/dev/kustomization.yaml
+        git add ./gitops/overlays/dev/kustomization.yaml
         git commit -m "Update frontend-react-deployment.yaml with tag $TAG"
         git push
       env:
