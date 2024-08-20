@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-react
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: front-react
+  template:
+    metadata:
+      labels:
+        app: front-react
+    spec:
+      containers:
+      - name: front-react
+        image: jy2545acr.azurecr.io/front-react:{{newTag}}
+        ports:
+        - containerPort: 80
