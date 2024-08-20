@@ -6,7 +6,7 @@ resources:
 
 images:
   - name: jy2545acr.azurecr.io/frontend-react
-    newTag: main-20240820110543
+    newTag: main-20240820131120
 
 commonLabels:
   app: frontend-react
