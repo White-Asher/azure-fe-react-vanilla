@@ -3,7 +3,7 @@ name: 'nginx_react_typescript_docker'
 
 services:
   app:
-    image: vite_react:test
+    image: front-react
     ports:
       - "8080:8080"
     restart: always

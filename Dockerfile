@@ -1,4 +1,4 @@
-FROM node:alpine as vite-app
+FROM node:alpine as front-react
 
 WORKDIR /app/client
 COPY ./client .
@@ -16,6 +16,6 @@ RUN mkdir html
 WORKDIR /
 
 COPY ./nginx/nginx.conf /etc/nginx
-COPY --from=vite-app ./app/client/dist /usr/share/nginx/html
+COPY --from=front-react ./app/client/dist /usr/share/nginx/html
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
