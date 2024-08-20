@@ -44,7 +44,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: ./gitops/front-react/Dockerfile
+        file: ./gitops/frontend-react/Dockerfile
         push: true
         tags: ${{ secrets.AZURE_URL }}/frontend-react:${{ github.event.inputs.name }}-${{ env.DATE_TAG }}
 
